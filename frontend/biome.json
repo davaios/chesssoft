@@ -45,12 +45,6 @@
     }
   },
   "files": {
-    "ignore": [
-      ".next",
-      "node_modules",
-      "coverage",
-      "*.config.js",
-      "*.config.mjs"
-    ]
+    "ignore": [".next", "node_modules", "coverage", "*.config.js", "*.config.mjs"]
   }
 }

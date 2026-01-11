@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { Chessboard } from "react-chessboard";
 import { Chess, type Square } from "chess.js";
 import { clsx } from "clsx";
+import { useCallback, useState } from "react";
+import { Chessboard } from "react-chessboard";
 
 type BoardProps = {
   fen?: string;
@@ -65,7 +65,7 @@ export function Board({
         promotion: isPromotion ? "q" : undefined, // Default to queen
       });
     },
-    [game, interactive, onMove]
+    [game, interactive, onMove],
   );
 
   return (

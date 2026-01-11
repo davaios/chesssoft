@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useCoachChat, useWeeklyPlan } from "@/lib/hooks";
+import { Card, CardHeader } from "@/components/ui/card";
 import type { ChatMessage } from "@/lib/api";
+import { useCoachChat, useWeeklyPlan } from "@/lib/hooks";
 import { clsx } from "clsx";
+import { useEffect, useRef, useState } from "react";
 
 export default function CoachPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -67,9 +66,7 @@ export default function CoachPage() {
     <DashboardLayout>
       <div className="mb-6">
         <h1 className="text-3xl font-bold">AI Coach</h1>
-        <p className="mt-1 text-neutral-400">
-          Get personalized chess advice and explanations
-        </p>
+        <p className="mt-1 text-neutral-400">Get personalized chess advice and explanations</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -82,9 +79,7 @@ export default function CoachPage() {
             <div className="flex-1 overflow-y-auto space-y-4 mb-4">
               {messages.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-neutral-400 mb-4">
-                    Ask me anything about chess!
-                  </p>
+                  <p className="text-neutral-400 mb-4">Ask me anything about chess!</p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {suggestedQuestions.map((q) => (
                       <button
@@ -106,7 +101,7 @@ export default function CoachPage() {
                       "max-w-[85%] rounded-lg px-4 py-2",
                       msg.role === "user"
                         ? "ml-auto bg-green-600 text-white"
-                        : "bg-neutral-800 text-neutral-100"
+                        : "bg-neutral-800 text-neutral-100",
                     )}
                   >
                     <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -165,9 +160,7 @@ export default function CoachPage() {
                 {/* Weaknesses */}
                 {weeklyPlan.weaknesses.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2">
-                      Areas to Improve
-                    </h4>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2">Areas to Improve</h4>
                     <ul className="space-y-1">
                       {weeklyPlan.weaknesses.map((w, i) => (
                         <li key={i} className="text-sm flex items-start gap-2">
@@ -182,9 +175,7 @@ export default function CoachPage() {
                 {/* Repertoire Gaps */}
                 {weeklyPlan.repertoire_gaps.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2">
-                      Repertoire Gaps
-                    </h4>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2">Repertoire Gaps</h4>
                     <ul className="space-y-1">
                       {weeklyPlan.repertoire_gaps.map((g, i) => (
                         <li key={i} className="text-sm flex items-start gap-2">
@@ -198,9 +189,7 @@ export default function CoachPage() {
 
                 {/* Plan */}
                 <div>
-                  <h4 className="text-sm font-medium text-neutral-400 mb-2">
-                    Your Plan
-                  </h4>
+                  <h4 className="text-sm font-medium text-neutral-400 mb-2">Your Plan</h4>
                   <div className="text-sm whitespace-pre-wrap text-neutral-300">
                     {weeklyPlan.plan}
                   </div>
@@ -215,14 +204,20 @@ export default function CoachPage() {
             <div className="space-y-2">
               <button
                 type="button"
-                onClick={() => handleSuggestedQuestion("Analyze my recent games and tell me what to work on")}
+                onClick={() =>
+                  handleSuggestedQuestion("Analyze my recent games and tell me what to work on")
+                }
                 className="w-full rounded-lg border border-neutral-700 px-3 py-2 text-left text-sm text-neutral-300 hover:bg-neutral-800 transition-colors"
               >
                 Analyze my games
               </button>
               <button
                 type="button"
-                onClick={() => handleSuggestedQuestion("What openings should I play as white for an attacking style?")}
+                onClick={() =>
+                  handleSuggestedQuestion(
+                    "What openings should I play as white for an attacking style?",
+                  )
+                }
                 className="w-full rounded-lg border border-neutral-700 px-3 py-2 text-left text-sm text-neutral-300 hover:bg-neutral-800 transition-colors"
               >
                 Opening recommendations

@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Card, CardHeader, StatCard } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import { useDailyStudyGoal, useGameStats, useRepertoireStats } from "@/lib/hooks";
-import { clsx } from "clsx";
+import Link from "next/link";
 
 export function TodayWidget() {
   const { data: daily, isLoading } = useDailyStudyGoal();
@@ -160,8 +159,8 @@ export function CoachTipWidget() {
     <Card className="bg-gradient-to-br from-green-900/30 to-neutral-900">
       <CardHeader title="Coach Says" />
       <p className="text-neutral-300">
-        Based on your recent games, you should focus on improving your endgame technique.
-        Try practicing king and pawn endgames this week.
+        Based on your recent games, you should focus on improving your endgame technique. Try
+        practicing king and pawn endgames this week.
       </p>
       <div className="mt-4">
         <Link href="/coach">

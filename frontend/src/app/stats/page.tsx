@@ -2,7 +2,7 @@
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Card, CardHeader } from "@/components/ui/card";
-import { useGameStats, useRepertoireStats, useStudySessions, useGames } from "@/lib/hooks";
+import { useGameStats, useGames, useRepertoireStats, useStudySessions } from "@/lib/hooks";
 import { clsx } from "clsx";
 
 export default function StatsPage() {
@@ -12,11 +12,12 @@ export default function StatsPage() {
   const { data: recentGames } = useGames({ per_page: 50 });
 
   // Calculate rating trend from recent games
-  const ratingTrend = recentGames?.items
-    .filter((g) => g.user_rating)
-    .slice(0, 20)
-    .reverse()
-    .map((g) => g.user_rating as number) || [];
+  const ratingTrend =
+    recentGames?.items
+      .filter((g) => g.user_rating)
+      .slice(0, 20)
+      .reverse()
+      .map((g) => g.user_rating as number) || [];
 
   const minRating = Math.min(...ratingTrend, 0);
   const maxRating = Math.max(...ratingTrend, 100);
@@ -47,9 +48,7 @@ export default function StatsPage() {
           <p className="text-sm text-neutral-400">Win Rate</p>
         </Card>
         <Card className="p-4">
-          <p className="text-3xl font-bold text-white">
-            {gameStats?.avg_acpl?.toFixed(1) || "—"}
-          </p>
+          <p className="text-3xl font-bold text-white">{gameStats?.avg_acpl?.toFixed(1) || "—"}</p>
           <p className="text-sm text-neutral-400">Avg ACPL</p>
         </Card>
         <Card className="p-4">
@@ -73,7 +72,7 @@ export default function StatsPage() {
                     key={i}
                     className={clsx(
                       "flex-1 rounded-t transition-all",
-                      isUp ? "bg-green-600" : isDown ? "bg-red-600" : "bg-neutral-600"
+                      isUp ? "bg-green-600" : isDown ? "bg-red-600" : "bg-neutral-600",
                     )}
                     style={{ height: `${Math.max(5, height)}%` }}
                     title={`${rating}`}
@@ -209,9 +208,7 @@ export default function StatsPage() {
                   <p className="text-xs text-neutral-500">Lines due today</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-green-500">
-                    {repertoireStats.streak_days}
-                  </p>
+                  <p className="text-2xl font-bold text-green-500">{repertoireStats.streak_days}</p>
                   <p className="text-xs text-neutral-500">Day streak</p>
                 </div>
               </div>
@@ -234,9 +231,7 @@ export default function StatsPage() {
                   const date = new Date();
                   date.setDate(date.getDate() - (27 - i));
                   const dateStr = date.toISOString().split("T")[0];
-                  const daySession = sessions.find(
-                    (s) => s.started_at.split("T")[0] === dateStr
-                  );
+                  const daySession = sessions.find((s) => s.started_at.split("T")[0] === dateStr);
                   const intensity = daySession
                     ? Math.min(4, Math.floor(daySession.cards_reviewed / 10))
                     : 0;
@@ -250,7 +245,7 @@ export default function StatsPage() {
                         intensity === 1 && "bg-green-900",
                         intensity === 2 && "bg-green-700",
                         intensity === 3 && "bg-green-500",
-                        intensity >= 4 && "bg-green-400"
+                        intensity >= 4 && "bg-green-400",
                       )}
                       title={`${dateStr}: ${daySession?.cards_reviewed || 0} cards`}
                     />

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { clsx } from "clsx";
 import type { RepertoireTreeNode } from "@/lib/api";
+import { clsx } from "clsx";
+import { useState } from "react";
 
 type RepertoireTreeProps = {
   nodes: RepertoireTreeNode[];
@@ -58,7 +58,7 @@ function TreeNode({ node, depth, onSelect, selectedId }: TreeNodeProps) {
       <div
         className={clsx(
           "flex cursor-pointer items-center gap-2 rounded px-2 py-1 transition-colors",
-          isSelected ? "bg-green-600/20" : "hover:bg-neutral-800"
+          isSelected ? "bg-green-600/20" : "hover:bg-neutral-800",
         )}
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
         onClick={() => onSelect?.(node)}
@@ -87,7 +87,10 @@ function TreeNode({ node, depth, onSelect, selectedId }: TreeNodeProps) {
 
         {/* Mastery indicator */}
         <span
-          className={clsx("h-2 w-2 rounded-full", masteryColors[node.mastery_level as keyof typeof masteryColors])}
+          className={clsx(
+            "h-2 w-2 rounded-full",
+            masteryColors[node.mastery_level as keyof typeof masteryColors],
+          )}
           title={node.mastery_level}
         />
 
@@ -100,7 +103,7 @@ function TreeNode({ node, depth, onSelect, selectedId }: TreeNodeProps) {
                 ? "text-green-500"
                 : node.engine_eval < -0.3
                   ? "text-red-500"
-                  : "text-neutral-400"
+                  : "text-neutral-400",
             )}
           >
             {node.engine_eval > 0 ? "+" : ""}
@@ -110,9 +113,7 @@ function TreeNode({ node, depth, onSelect, selectedId }: TreeNodeProps) {
 
         {/* Coverage */}
         {node.coverage_prob !== null && (
-          <span className="text-xs text-neutral-500">
-            {(node.coverage_prob * 100).toFixed(0)}%
-          </span>
+          <span className="text-xs text-neutral-500">{(node.coverage_prob * 100).toFixed(0)}%</span>
         )}
       </div>
 

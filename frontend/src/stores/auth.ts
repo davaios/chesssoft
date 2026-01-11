@@ -1,6 +1,6 @@
+import type { User } from "@/lib/api";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { User } from "@/lib/api";
 
 type AuthState = {
   token: string | null;
@@ -40,6 +40,6 @@ export const useAuthStore = create<AuthState>()(
     {
       name: "chessforge-auth",
       partialize: (state) => ({ token: state.token }),
-    }
-  )
+    },
+  ),
 );
