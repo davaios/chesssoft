@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* ChessForge Theme Colors */
+@theme {
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-info: #1e40af;
+  --color-warning: #ca8a04;
+
+  /* Chess board colors */
+  --color-board-light: #eeeed2;
+  --color-board-dark: #769656;
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-neutral-800;
+  }
+
+  body {
+    @apply bg-neutral-950 text-neutral-100;
+  }
+}
