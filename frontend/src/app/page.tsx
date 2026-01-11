@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
@@ -10,18 +12,18 @@ export default function Home() {
           personalized training.
         </p>
         <div className="flex gap-4 justify-center">
-          <button
-            type="button"
+          <Link
+            href="/dashboard"
             className="rounded-lg bg-green-600 px-6 py-3 font-medium text-white transition-colors hover:bg-green-700"
           >
             Get Started
-          </button>
-          <button
-            type="button"
+          </Link>
+          <Link
+            href="/login"
             className="rounded-lg border border-neutral-700 px-6 py-3 font-medium text-neutral-300 transition-colors hover:bg-neutral-900"
           >
-            Learn More
-          </button>
+            Sign In
+          </Link>
         </div>
       </div>
     </main>
