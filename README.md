@@ -1,4 +1,4 @@
-# ChessForge
+# Chesstoire
 
 An integrated chess improvement system that closes the loop between playing, analyzing, and training.
 
@@ -36,9 +36,9 @@ An integrated chess improvement system that closes the loop between playing, ana
 ## Project Structure
 
 ```
-chessforge/
+chesstoire/
 ├── backend/
-│   ├── src/chessforge/
+│   ├── src/chesstoire/
 │   │   ├── api/           # FastAPI routes
 │   │   ├── models/        # SQLAlchemy models
 │   │   ├── schemas/       # Pydantic schemas
@@ -86,7 +86,7 @@ cp .env.example .env
 alembic upgrade head
 
 # Start server
-uvicorn chessforge.main:app --reload
+uvicorn chesstoire.main:app --reload
 ```
 
 ### Frontend Setup
@@ -120,7 +120,7 @@ docker compose exec backend alembic upgrade head
 ### Backend (.env)
 
 ```env
-DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/chessforge
+DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/chesstoire
 REDIS_URL=redis://localhost:6379/0
 JWT_SECRET=your-secret-key
 ANTHROPIC_API_KEY=your-anthropic-key

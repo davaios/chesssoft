@@ -1,7 +1,7 @@
 {
-  "name": "chessforge-frontend",
+  "name": "chesstoire-frontend",
   "version": "0.1.0",
-  "description": "ChessForge - Integrated Chess Improvement System",
+  "description": "Chesstoire - Integrated Chess Improvement System",
   "private": true,
   "scripts": {
     "dev": "next dev",

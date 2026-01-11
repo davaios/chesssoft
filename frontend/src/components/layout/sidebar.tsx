@@ -29,7 +29,7 @@ export function Sidebar() {
       <div className="flex h-16 items-center justify-between border-b border-neutral-800 px-4">
         {sidebarOpen && (
           <Link href="/dashboard" className="text-xl font-bold">
-            Chess<span className="text-green-500">Forge</span>
+            Chess<span className="text-green-500">toire</span>
           </Link>
         )}
         <button
@@ -66,7 +66,7 @@ export function Sidebar() {
       <div className="border-t border-neutral-800 p-4">
         {sidebarOpen && (
           <div className="text-xs text-neutral-500">
-            <p>ChessForge v0.1.0</p>
+            <p>Chesstoire v0.1.0</p>
           </div>
         )}
       </div>

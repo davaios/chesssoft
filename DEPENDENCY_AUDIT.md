@@ -1,7 +1,7 @@
 # Dependency Audit Report
 
 **Date:** January 11, 2026
-**Project:** ChessForge
+**Project:** Chesstoire
 **Auditor:** Automated Analysis
 
 ---
