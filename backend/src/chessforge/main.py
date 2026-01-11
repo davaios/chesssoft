@@ -1,5 +1,6 @@
 """ChessForge API - Main application entry point."""
 
+import structlog
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
@@ -7,14 +8,20 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from chessforge.config import settings
+from chessforge.db import async_engine
+
+logger = structlog.get_logger()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifespan handler for startup/shutdown events."""
     # Startup
+    logger.info("Starting ChessForge API", version="0.1.0", env=settings.app_env)
     yield
     # Shutdown
+    logger.info("Shutting down ChessForge API")
+    await async_engine.dispose()
 
 
 app = FastAPI(
