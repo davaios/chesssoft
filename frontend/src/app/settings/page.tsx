@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
-  usePlatformAccounts,
   useConnectPlatform,
-  useDisconnectPlatform,
   useCurrentUser,
+  useDisconnectPlatform,
+  usePlatformAccounts,
 } from "@/lib/hooks";
 import { useLogout } from "@/lib/hooks";
+import { useState } from "react";
 
 export default function SettingsPage() {
   const { data: user } = useCurrentUser();
@@ -130,7 +130,9 @@ export default function SettingsPage() {
             <p className="text-sm font-medium text-neutral-300">Connect a new account</p>
 
             {connectError && (
-              <div className="rounded-lg bg-red-500/10 p-3 text-sm text-red-500">{connectError}</div>
+              <div className="rounded-lg bg-red-500/10 p-3 text-sm text-red-500">
+                {connectError}
+              </div>
             )}
 
             <div className="flex gap-2">

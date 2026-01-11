@@ -1,5 +1,5 @@
+import type { CardResult, StudyCard } from "@/lib/api";
 import { create } from "zustand";
-import type { StudyCard, CardResult } from "@/lib/api";
 
 type PracticeState = {
   sessionId: string | null;

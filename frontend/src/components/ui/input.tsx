@@ -25,14 +25,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             error
               ? "border-red-500 focus:border-red-500 focus:ring-red-500/50"
               : "border-neutral-700 focus:border-green-500 focus:ring-green-500/50",
-            className
+            className,
           )}
           {...props}
         />
         {error && <p className="text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

@@ -1,12 +1,12 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Board } from "@/components/chess/board";
-import { useGame, useDeleteGame } from "@/lib/hooks";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { useDeleteGame, useGame } from "@/lib/hooks";
 import { clsx } from "clsx";
+import { useParams, useRouter } from "next/navigation";
 
 export default function GameDetailPage() {
   const params = useParams();
@@ -84,7 +84,12 @@ export default function GameDetailPage() {
             })}
           </p>
         </div>
-        <Button variant="danger" size="sm" onClick={handleDelete} loading={deleteMutation.isPending}>
+        <Button
+          variant="danger"
+          size="sm"
+          onClick={handleDelete}
+          loading={deleteMutation.isPending}
+        >
           Delete
         </Button>
       </div>
@@ -158,7 +163,7 @@ export default function GameDetailPage() {
                         ? "text-green-500"
                         : game.acpl < 50
                           ? "text-yellow-500"
-                          : "text-red-500"
+                          : "text-red-500",
                     )}
                   >
                     {game.acpl.toFixed(1)}
@@ -173,7 +178,8 @@ export default function GameDetailPage() {
               </div>
               <p className="mt-2 text-xs text-neutral-500">
                 Status: {game.analysis_status}
-                {game.analyzed_at && ` • Analyzed ${new Date(game.analyzed_at).toLocaleDateString()}`}
+                {game.analyzed_at &&
+                  ` • Analyzed ${new Date(game.analyzed_at).toLocaleDateString()}`}
               </p>
             </Card>
           )}

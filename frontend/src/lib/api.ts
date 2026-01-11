@@ -8,7 +8,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     public statusText: string,
-    public data?: unknown
+    public data?: unknown,
   ) {
     super(`API Error: ${status} ${statusText}`);
     this.name = "ApiError";
@@ -62,13 +62,16 @@ export const authApi = {
   login: (data: { email: string; password: string }) =>
     request<{ access_token: string; token_type: string; expires_in: number }>(
       "/api/v1/auth/login",
-      { method: "POST", body: data }
+      { method: "POST", body: data },
     ),
 
   me: () => request<User>("/api/v1/auth/me"),
 
-  updateMe: (data: { display_name?: string; avatar_url?: string; settings?: Record<string, unknown> }) =>
-    request<User>("/api/v1/auth/me", { method: "PATCH", body: data }),
+  updateMe: (data: {
+    display_name?: string;
+    avatar_url?: string;
+    settings?: Record<string, unknown>;
+  }) => request<User>("/api/v1/auth/me", { method: "PATCH", body: data }),
 };
 
 // Platform API
@@ -78,11 +81,9 @@ export const platformApi = {
   connect: (data: { platform: string; username: string }) =>
     request<PlatformAccount>("/api/v1/platforms", { method: "POST", body: data }),
 
-  disconnect: (id: string) =>
-    request<void>(`/api/v1/platforms/${id}`, { method: "DELETE" }),
+  disconnect: (id: string) => request<void>(`/api/v1/platforms/${id}`, { method: "DELETE" }),
 
-  sync: (id: string) =>
-    request<SyncResult>(`/api/v1/platforms/${id}/sync`, { method: "POST" }),
+  sync: (id: string) => request<SyncResult>(`/api/v1/platforms/${id}/sync`, { method: "POST" }),
 };
 
 // Games API
@@ -109,8 +110,7 @@ export const gamesApi = {
 export const repertoireApi = {
   stats: () => request<RepertoireStats>("/api/v1/repertoire/stats"),
 
-  tree: (color: "white" | "black") =>
-    request<RepertoireTree>(`/api/v1/repertoire/tree/${color}`),
+  tree: (color: "white" | "black") => request<RepertoireTree>(`/api/v1/repertoire/tree/${color}`),
 
   listLines: (params?: { color?: string; fen?: string; due_only?: boolean }) => {
     const searchParams = new URLSearchParams();
@@ -129,8 +129,7 @@ export const repertoireApi = {
   updateLine: (id: string, data: UpdateLineData) =>
     request<RepertoireLine>(`/api/v1/repertoire/lines/${id}`, { method: "PATCH", body: data }),
 
-  deleteLine: (id: string) =>
-    request<void>(`/api/v1/repertoire/lines/${id}`, { method: "DELETE" }),
+  deleteLine: (id: string) => request<void>(`/api/v1/repertoire/lines/${id}`, { method: "DELETE" }),
 };
 
 // Study API
@@ -166,13 +165,16 @@ export const coachApi = {
     best_move: string;
     eval_before: number;
     eval_after: number;
-  }) => request<{ explanation: string }>("/api/v1/coach/explain-move", { method: "POST", body: data }),
+  }) =>
+    request<{ explanation: string }>("/api/v1/coach/explain-move", { method: "POST", body: data }),
 
-  weeklyPlan: () =>
-    request<WeeklyPlan>("/api/v1/coach/weekly-plan"),
+  weeklyPlan: () => request<WeeklyPlan>("/api/v1/coach/weekly-plan"),
 
   explainOpening: (data: { opening_name: string; eco_code?: string; player_color?: string }) =>
-    request<{ explanation: string }>("/api/v1/coach/explain-opening", { method: "POST", body: data }),
+    request<{ explanation: string }>("/api/v1/coach/explain-opening", {
+      method: "POST",
+      body: data,
+    }),
 };
 
 // Types

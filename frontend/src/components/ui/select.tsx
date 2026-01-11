@@ -22,7 +22,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={selectId}
           className={clsx(
             "w-full rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2 text-white transition-colors focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:ring-offset-2 focus:ring-offset-neutral-950",
-            className
+            className,
           )}
           {...props}
         >
@@ -34,7 +34,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </select>
       </div>
     );
-  }
+  },
 );
 
 Select.displayName = "Select";

@@ -1,25 +1,22 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Chess, type Square } from "chess.js";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Board } from "@/components/chess/board";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { RepertoireTreeView } from "@/components/repertoire/repertoire-tree";
-import {
-  useRepertoireTree,
-  useRepertoireStats,
-  useCreateLine,
-  useDeleteLine,
-} from "@/lib/hooks";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import type { RepertoireTreeNode } from "@/lib/api";
+import { useCreateLine, useDeleteLine, useRepertoireStats, useRepertoireTree } from "@/lib/hooks";
+import { Chess, type Square } from "chess.js";
 import { clsx } from "clsx";
+import { useCallback, useState } from "react";
 
 export default function RepertoirePage() {
   const [selectedColor, setSelectedColor] = useState<"white" | "black">("white");
   const [selectedNode, setSelectedNode] = useState<RepertoireTreeNode | null>(null);
-  const [currentFen, setCurrentFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  const [currentFen, setCurrentFen] = useState(
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  );
   const [game] = useState(() => new Chess());
 
   const { data: tree, isLoading } = useRepertoireTree(selectedColor);
@@ -55,7 +52,7 @@ export default function RepertoirePage() {
       setCurrentFen(tempGame.fen());
       return true;
     },
-    [currentFen, selectedColor, selectedNode, createLine]
+    [currentFen, selectedColor, selectedNode, createLine],
   );
 
   const handleReset = useCallback(() => {
@@ -167,10 +164,12 @@ export default function RepertoirePage() {
             <>
               <div className="mb-4 flex gap-4 text-sm">
                 <span className="flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-full bg-green-600" /> Mastered ({tree.lines_mastered})
+                  <span className="h-2 w-2 rounded-full bg-green-600" /> Mastered (
+                  {tree.lines_mastered})
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-full bg-yellow-600" /> Learning ({tree.lines_learning})
+                  <span className="h-2 w-2 rounded-full bg-yellow-600" /> Learning (
+                  {tree.lines_learning})
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="h-2 w-2 rounded-full bg-neutral-600" /> New ({tree.lines_new})
@@ -197,14 +196,16 @@ export default function RepertoirePage() {
             </div>
             <div>
               <p className="text-neutral-400">Engine Eval</p>
-              <p className={clsx(
-                "font-medium",
-                selectedNode.engine_eval && selectedNode.engine_eval > 0.3
-                  ? "text-green-500"
-                  : selectedNode.engine_eval && selectedNode.engine_eval < -0.3
-                    ? "text-red-500"
-                    : "text-white"
-              )}>
+              <p
+                className={clsx(
+                  "font-medium",
+                  selectedNode.engine_eval && selectedNode.engine_eval > 0.3
+                    ? "text-green-500"
+                    : selectedNode.engine_eval && selectedNode.engine_eval < -0.3
+                      ? "text-red-500"
+                      : "text-white",
+                )}
+              >
                 {selectedNode.engine_eval !== null
                   ? `${selectedNode.engine_eval > 0 ? "+" : ""}${selectedNode.engine_eval.toFixed(2)}`
                   : "—"}

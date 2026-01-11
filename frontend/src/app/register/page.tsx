@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { ApiError } from "@/lib/api";
+import { useLogin, useRegister } from "@/lib/hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useRegister, useLogin } from "@/lib/hooks";
-import { ApiError } from "@/lib/api";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -112,11 +112,7 @@ export default function RegisterPage() {
             autoComplete="new-password"
           />
 
-          <Button
-            type="submit"
-            className="w-full"
-            loading={register.isPending || login.isPending}
-          >
+          <Button type="submit" className="w-full" loading={register.isPending || login.isPending}>
             Create Account
           </Button>
         </form>

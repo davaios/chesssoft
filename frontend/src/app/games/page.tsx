@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Select } from "@/components/ui/select";
 import { GameCard, GameCardSkeleton } from "@/components/games/game-card";
-import { useGames, useGameStats, usePlatformAccounts, useSyncPlatform } from "@/lib/hooks";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Select } from "@/components/ui/select";
+import { useGameStats, useGames, usePlatformAccounts, useSyncPlatform } from "@/lib/hooks";
+import { useState } from "react";
 
 const platformOptions = [
   { value: "", label: "All Platforms" },
@@ -92,9 +92,7 @@ export default function GamesPage() {
             <p className="text-sm text-neutral-400">Win Rate</p>
           </Card>
           <Card className="p-4">
-            <p className="text-2xl font-bold text-white">
-              {stats.avg_acpl?.toFixed(1) || "—"}
-            </p>
+            <p className="text-2xl font-bold text-white">{stats.avg_acpl?.toFixed(1) || "—"}</p>
             <p className="text-sm text-neutral-400">Avg ACPL</p>
           </Card>
           <Card className="p-4">

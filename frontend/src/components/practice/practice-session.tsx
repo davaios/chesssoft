@@ -1,18 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Chess, type Square } from "chess.js";
 import { Board } from "@/components/chess/board";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { usePracticeStore } from "@/stores/practice";
 import {
   useAnswerCard,
   useEndStudySession,
   useNextStudyCard,
   useStartStudySession,
 } from "@/lib/hooks";
+import { usePracticeStore } from "@/stores/practice";
+import { Chess, type Square } from "chess.js";
 import { clsx } from "clsx";
+import { useCallback, useEffect, useRef } from "react";
 
 type PracticeSessionProps = {
   sessionType?: "repertoire" | "tactics" | "endgame" | "review";
@@ -89,12 +89,12 @@ export function PracticeSession({ sessionType = "repertoire" }: PracticeSessionP
             setLastResult(result);
             incrementAnswered(result.is_correct);
           },
-        }
+        },
       );
 
       return true;
     },
-    [currentCard, showingResult, answerMutation, setLastResult, incrementAnswered]
+    [currentCard, showingResult, answerMutation, setLastResult, incrementAnswered],
   );
 
   // Continue to next card
@@ -115,9 +115,7 @@ export function PracticeSession({ sessionType = "repertoire" }: PracticeSessionP
     return (
       <Card className="mx-auto max-w-md text-center">
         <h2 className="mb-4 text-2xl font-bold">Ready to Practice?</h2>
-        <p className="mb-6 text-neutral-400">
-          Test your opening knowledge with spaced repetition.
-        </p>
+        <p className="mb-6 text-neutral-400">Test your opening knowledge with spaced repetition.</p>
         <Button onClick={handleStart} loading={startMutation.isPending} size="lg">
           Start Session
         </Button>
@@ -183,7 +181,7 @@ export function PracticeSession({ sessionType = "repertoire" }: PracticeSessionP
             <Card
               className={clsx(
                 "border-2",
-                lastResult.is_correct ? "border-green-600" : "border-red-600"
+                lastResult.is_correct ? "border-green-600" : "border-red-600",
               )}
             >
               <div className="mb-4 flex items-center gap-3">

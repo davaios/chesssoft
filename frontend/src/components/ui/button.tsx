@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { type ButtonHTMLAttributes, type ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
@@ -13,14 +13,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500/50",
+  primary: "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500/50",
   secondary:
     "border border-neutral-700 bg-neutral-800 text-neutral-200 hover:bg-neutral-700 focus:ring-neutral-500/50",
-  ghost:
-    "text-neutral-400 hover:bg-neutral-800 hover:text-white focus:ring-neutral-500/50",
-  danger:
-    "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500/50",
+  ghost: "text-neutral-400 hover:bg-neutral-800 hover:text-white focus:ring-neutral-500/50",
+  danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500/50",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -46,17 +43,13 @@ export function Button({
         "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-950 disabled:cursor-not-allowed disabled:opacity-50",
         variantStyles[variant],
         sizeStyles[size],
-        className
+        className,
       )}
       disabled={disabled || loading}
       {...props}
     >
       {loading ? (
-        <svg
-          className="h-4 w-4 animate-spin"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
+        <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
           <circle
             className="opacity-25"
             cx="12"

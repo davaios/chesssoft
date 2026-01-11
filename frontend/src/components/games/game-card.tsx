@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { clsx } from "clsx";
 import type { Game } from "@/lib/api";
+import { clsx } from "clsx";
+import Link from "next/link";
 
 type GameCardProps = {
   game: Game;
@@ -21,13 +21,14 @@ export function GameCard({ game }: GameCardProps) {
     draw: "Draw",
   }[game.result];
 
-  const timeControlLabel = {
-    bullet: "Bullet",
-    blitz: "Blitz",
-    rapid: "Rapid",
-    classical: "Classical",
-    daily: "Daily",
-  }[game.time_control] || game.time_control;
+  const timeControlLabel =
+    {
+      bullet: "Bullet",
+      blitz: "Blitz",
+      rapid: "Rapid",
+      classical: "Classical",
+      daily: "Daily",
+    }[game.time_control] || game.time_control;
 
   const platformIcon = game.platform === "chess.com" ? "chess.com" : "lichess";
 
@@ -66,7 +67,7 @@ export function GameCard({ game }: GameCardProps) {
                       ? "text-green-500"
                       : game.acpl < 50
                         ? "text-yellow-500"
-                        : "text-red-500"
+                        : "text-red-500",
                   )}
                 >
                   {game.acpl.toFixed(1)}
