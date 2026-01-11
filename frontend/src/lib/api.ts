@@ -155,6 +155,26 @@ export const studyApi = {
   },
 };
 
+// Coach API
+export const coachApi = {
+  chat: (data: { message: string; context?: string; conversation_history?: ChatMessage[] }) =>
+    request<{ response: string }>("/api/v1/coach/chat", { method: "POST", body: data }),
+
+  explainMove: (data: {
+    fen: string;
+    played_move: string;
+    best_move: string;
+    eval_before: number;
+    eval_after: number;
+  }) => request<{ explanation: string }>("/api/v1/coach/explain-move", { method: "POST", body: data }),
+
+  weeklyPlan: () =>
+    request<WeeklyPlan>("/api/v1/coach/weekly-plan"),
+
+  explainOpening: (data: { opening_name: string; eco_code?: string; player_color?: string }) =>
+    request<{ explanation: string }>("/api/v1/coach/explain-opening", { method: "POST", body: data }),
+};
+
 // Types
 export type User = {
   id: string;
@@ -356,4 +376,15 @@ export type CardResult = {
   user_move: string;
   explanation: string | null;
   next_review_days: number | null;
+};
+
+export type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+export type WeeklyPlan = {
+  plan: string;
+  weaknesses: string[];
+  repertoire_gaps: string[];
 };

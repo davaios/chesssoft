@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   authApi,
+  coachApi,
   gamesApi,
   platformApi,
   repertoireApi,
@@ -232,5 +233,33 @@ export function useAnswerCard() {
       queryClient.invalidateQueries({ queryKey: ["nextStudyCard"] });
       queryClient.invalidateQueries({ queryKey: ["repertoireLines"] });
     },
+  });
+}
+
+// Coach hooks
+export function useCoachChat() {
+  return useMutation({
+    mutationFn: coachApi.chat,
+  });
+}
+
+export function useExplainMove() {
+  return useMutation({
+    mutationFn: coachApi.explainMove,
+  });
+}
+
+export function useWeeklyPlan() {
+  return useQuery({
+    queryKey: ["weeklyPlan"],
+    queryFn: coachApi.weeklyPlan,
+    staleTime: 1000 * 60 * 60, // 1 hour
+    retry: false,
+  });
+}
+
+export function useExplainOpening() {
+  return useMutation({
+    mutationFn: coachApi.explainOpening,
   });
 }
