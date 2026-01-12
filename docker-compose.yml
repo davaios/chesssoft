@@ -1,24 +1,24 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: chessforge-db
+    container_name: chesstoire-db
     environment:
-      POSTGRES_USER: chessforge
-      POSTGRES_PASSWORD: chessforge_dev
-      POSTGRES_DB: chessforge
+      POSTGRES_USER: chesstoire
+      POSTGRES_PASSWORD: chesstoire_dev
+      POSTGRES_DB: chesstoire
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chessforge"]
+      test: ["CMD-SHELL", "pg_isready -U chesstoire"]
       interval: 5s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7-alpine
-    container_name: chessforge-redis
+    container_name: chesstoire-redis
     ports:
       - "6379:6379"
     volumes:

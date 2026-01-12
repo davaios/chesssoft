@@ -38,7 +38,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "chessforge-auth",
+      name: "chesstoire-auth",
       partialize: (state) => ({ token: state.token }),
     },
   ),

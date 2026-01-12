@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ChessForge - Integrated Chess Improvement System",
+  title: "Chesstoire - Integrated Chess Improvement System",
   description:
-    "Transform your chess errors into personalized lessons. ChessForge closes the loop between playing and studying.",
+    "Transform your chess errors into personalized lessons. Chesstoire closes the loop between playing and studying.",
 };
 
 export default function RootLayout({

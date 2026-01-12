@@ -8,8 +8,8 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from chessforge.config import settings
-from chessforge.models import Base
+from chesstoire.config import settings
+from chesstoire.models import Base
 
 # Alembic Config object
 config = context.config
