@@ -180,6 +180,14 @@ export function useDeleteLine() {
   });
 }
 
+export function useOpeningSuggestions(fen: string) {
+  return useQuery({
+    queryKey: ["openingSuggestions", fen],
+    queryFn: () => repertoireApi.suggestions(fen),
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+  });
+}
+
 // Study hooks
 export function useDailyStudyGoal() {
   return useQuery({

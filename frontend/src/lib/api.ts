@@ -130,6 +130,9 @@ export const repertoireApi = {
     request<RepertoireLine>(`/api/v1/repertoire/lines/${id}`, { method: "PATCH", body: data }),
 
   deleteLine: (id: string) => request<void>(`/api/v1/repertoire/lines/${id}`, { method: "DELETE" }),
+
+  suggestions: (fen: string) =>
+    request<OpeningSuggestions>(`/api/v1/repertoire/suggestions?fen=${encodeURIComponent(fen)}`),
 };
 
 // Study API
@@ -389,4 +392,20 @@ export type WeeklyPlan = {
   plan: string;
   weaknesses: string[];
   repertoire_gaps: string[];
+};
+
+export type OpeningMove = {
+  san: string;
+  uci: string | null;
+  total_games: number;
+  white_wins: number;
+  draws: number;
+  black_wins: number;
+  average_rating: number | null;
+};
+
+export type OpeningSuggestions = {
+  opening: string | null;
+  eco: string | null;
+  moves: OpeningMove[];
 };
