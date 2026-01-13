@@ -179,8 +179,6 @@ class LichessService:
         Returns:
             Dictionary with moves, their statistics, and opening name
         """
-        client = await self._get_client()
-
         params: dict[str, Any] = {"fen": fen}
         if ratings:
             params["ratings"] = ",".join(str(r) for r in ratings)
@@ -188,12 +186,14 @@ class LichessService:
             params["speeds"] = ",".join(speeds)
 
         try:
-            response = await client.get(
-                "https://explorer.lichess.ovh/lichess",
-                params=params,
-            )
-            response.raise_for_status()
-            data = response.json()
+            # Use a separate client for the explorer API (different domain)
+            async with httpx.AsyncClient(timeout=self.TIMEOUT) as client:
+                response = await client.get(
+                    "https://explorer.lichess.ovh/lichess",
+                    params=params,
+                )
+                response.raise_for_status()
+                data = response.json()
 
             moves = []
             for move in data.get("moves", []):
