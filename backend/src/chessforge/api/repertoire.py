@@ -3,6 +3,7 @@
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException, Query, status
+from pydantic import BaseModel
 from sqlalchemy import func, select
 
 from chessforge.core.deps import CurrentUser, DbSession
@@ -15,6 +16,27 @@ from chessforge.schemas.repertoire import (
     RepertoireTree,
     RepertoireTreeNode,
 )
+from chessforge.services.lichess import LichessService
+
+
+class OpeningMove(BaseModel):
+    """Suggested opening move with statistics."""
+
+    san: str
+    uci: str | None
+    total_games: int
+    white_wins: float
+    draws: float
+    black_wins: float
+    average_rating: int | None
+
+
+class OpeningSuggestions(BaseModel):
+    """Opening suggestions for a position."""
+
+    opening: str | None
+    eco: str | None
+    moves: list[OpeningMove]
 
 router = APIRouter()
 
@@ -53,6 +75,24 @@ async def get_repertoire_stats(user: CurrentUser, session: DbSession) -> dict:
         "total_due_today": due_today,
         "streak_days": 0,  # TODO: Calculate from study sessions
     }
+
+
+@router.get("/suggestions", response_model=OpeningSuggestions)
+async def get_opening_suggestions(
+    user: CurrentUser,
+    fen: str = Query(..., description="FEN position to get suggestions for"),
+) -> dict:
+    """Get opening move suggestions from the Lichess opening explorer."""
+    lichess = LichessService()
+    try:
+        result = await lichess.get_opening_explorer(
+            fen=fen,
+            ratings=[1600, 1800, 2000, 2200],
+            speeds=["blitz", "rapid", "classical"],
+        )
+        return result
+    finally:
+        await lichess.close()
 
 
 @router.get("/tree/{color}", response_model=RepertoireTree)

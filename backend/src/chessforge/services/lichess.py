@@ -162,3 +162,64 @@ class LichessService:
                 }
 
         return ratings
+
+    async def get_opening_explorer(
+        self,
+        fen: str,
+        ratings: list[int] | None = None,
+        speeds: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Get opening moves from Lichess Opening Explorer API.
+
+        Args:
+            fen: The FEN position to explore
+            ratings: List of rating ranges (e.g., [1600, 1800, 2000])
+            speeds: List of time controls (e.g., ["blitz", "rapid"])
+
+        Returns:
+            Dictionary with moves, their statistics, and opening name
+        """
+        client = await self._get_client()
+
+        params: dict[str, Any] = {"fen": fen}
+        if ratings:
+            params["ratings"] = ",".join(str(r) for r in ratings)
+        if speeds:
+            params["speeds"] = ",".join(speeds)
+
+        try:
+            response = await client.get(
+                "https://explorer.lichess.ovh/lichess",
+                params=params,
+            )
+            response.raise_for_status()
+            data = response.json()
+
+            moves = []
+            for move in data.get("moves", []):
+                total = move.get("white", 0) + move.get("draws", 0) + move.get("black", 0)
+                if total > 0:
+                    white_pct = round(move.get("white", 0) / total * 100, 1)
+                    draw_pct = round(move.get("draws", 0) / total * 100, 1)
+                    black_pct = round(move.get("black", 0) / total * 100, 1)
+                else:
+                    white_pct = draw_pct = black_pct = 0
+
+                moves.append({
+                    "san": move.get("san"),
+                    "uci": move.get("uci"),
+                    "total_games": total,
+                    "white_wins": white_pct,
+                    "draws": draw_pct,
+                    "black_wins": black_pct,
+                    "average_rating": move.get("averageRating"),
+                })
+
+            return {
+                "opening": data.get("opening", {}).get("name"),
+                "eco": data.get("opening", {}).get("eco"),
+                "moves": moves,
+            }
+        except httpx.HTTPError as e:
+            logger.error("Failed to fetch opening explorer", fen=fen, error=str(e))
+            return {"opening": None, "eco": None, "moves": []}
